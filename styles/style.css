@@ -2,6 +2,7 @@
     margin: 0;
     padding: 0;
 }
+
 #root {
     width: 100%;
     height: 100vh;
@@ -13,6 +14,7 @@
     background-color: white;
     display: block;
 }
+
 .ul-menu > li {
    list-style: none;
    display: block;
@@ -21,6 +23,7 @@
    line-height: 60px; 
    text-align: center;  
 }
+
 .ul-menu a {
     display: block;
     height: 100%;
@@ -32,12 +35,19 @@
    text-transform: uppercase;
    font-size: 14px;
    font-weight: bold;
+   letter-spacing: 1px;
 }
+
+.trig-link {
+    padding: 0 5px;
+}
+
 .ul-menu > li:last-child {
     float: right;
     border-right: none;
     border-left: 1px solid #c6d0da;
 }
+
 .ul-menu-side {
     display: block;
     position: fixed;
@@ -47,11 +57,42 @@
     left: -100%;
     transition: left 0.45s;
 }
-.side-menu > li {
+
+.side-menu > li > a {
     border-top: 1px solid #c6d0da;
     font-family: 'Montserrat', sans-serif;
     font-weight: 300;
     width: 300px;
     padding-left: 10px;
     text-align: start;
+}
+
+.ul-menu > li > a:hover {
+    background-color: #5f6f81;
+    color: white;
+} 
+
+.side-menu > li > a:hover {
+    background-color: #5f6f81;
+    color: white;
+}
+
+.fa-search {
+    padding: 0px 10px;
+}
+
+.fa-download {
+    padding: 0 10px;
+}
+
+.fa-cog {
+    padding: 0 10px;
+}
+
+.fa-question-circle {
+    padding: 0 10px;
+}
+
+.fa-archive {
+    padding: 0 10px;
 }

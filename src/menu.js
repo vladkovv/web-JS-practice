@@ -10,27 +10,48 @@ const app = document.querySelector('#root');
 const ul = createElement('ul', 'ul-menu');
 
 const triger = createElement('li', 'triger');
-const linkTrig = createElement('a');
-linkTrig.textContent = '*';
+const linkTrig = createElement('a', 'trig-link');
+linkTrig.insertAdjacentHTML('afterBegin', '<i class="fa fa-bars" aria-hidden="true"></i>')
 linkTrig.href = '#';
 
 const nav = createElement('nav', 'ul-menu-side');
 const navUl = createElement('ul', 'side-menu');
 
 const liSearch = createElement('li');
-liSearch.textContent = 'Search';
+const linkSearch = createElement('a');
+linkSearch.textContent = 'Search';
+linkSearch.href = '#';
+linkSearch.insertAdjacentHTML('afterBegin', '<i class="fa fa-search" aria-hidden="true"></i>');
+liSearch.append(linkSearch);
+
 
 const liDownloads = createElement('li');
-liDownloads.textContent = 'Downloads';
+const linkDownloads = createElement('a');
+linkDownloads.textContent = 'Downloads';
+linkDownloads.href = '#';
+linkDownloads.insertAdjacentHTML('afterBegin', '<i class="fa fa-download" aria-hidden="true"></i>');
+liDownloads.append(linkDownloads);
 
 const liSettings = createElement('li');
-liSettings.textContent = 'Settings';
+const linkSettings = createElement('a');
+linkSettings.textContent = 'Settings';
+linkSettings.href = '#';
+linkSettings.insertAdjacentHTML('afterBegin', '<i class="fa fa-cog" aria-hidden="true"></i>');
+liSettings.append(linkSettings);
 
 const liHelp = createElement('li');
-liHelp.textContent = 'Help';
+const linkHelp = createElement('a');
+linkHelp.textContent = 'Help';
+linkHelp.href = '#';
+linkHelp.insertAdjacentHTML('afterBegin', '<i class="fa fa-question-circle" aria-hidden="true"></i>');
+liHelp.append(linkHelp);
 
 const liArchives = createElement('li');
-liArchives.textContent = 'Archives';
+const linkArchives = createElement('a');
+linkArchives.textContent = 'Archives';
+linkArchives.href = '#';
+linkArchives.insertAdjacentHTML('afterBegin', '<i class="fa fa-archive" aria-hidden="true"></i>');
+liArchives.append(linkArchives);
 
 navUl.append(liSearch, liDownloads, liSettings, liHelp, liArchives);
 nav.append(navUl);
@@ -44,53 +65,29 @@ liFirst.append(linkF);
 
 const liSec = createElement('li');
 const linkS = createElement('a');
-const img = createElement('i');
-linkS.textContent = 'Previous Demo';
+linkS.textContent = ` Previous Demo`;
 linkS.href = '#';
+linkS.insertAdjacentHTML('afterBegin', '<i class = "fa fa-arrow-left">')
 liSec.append(linkS);
 
 const liTh = createElement('li');
 const linkT = createElement('a');
-linkT.textContent = 'Back to the Codrops Article';
+linkT.textContent = ' Back to the Codrops Article';
 linkT.href = '#';
+linkT.insertAdjacentHTML('afterBegin', '<i class="fa fa-tint" aria-hidden="true"></i>');
 liTh.append(linkT);
-const i = createElement('i', 'fa-arrow-left');
 
 ul.append(triger, liFirst, liSec, liTh)
-app.append(ul, i);
-
-function hovered() {
-    this.style.backgroundColor = '#5f6f81';
-    this.style.color = 'white';
-}
-
-function mouseOut() {
-    this.style.backgroundColor = 'white';
-    this.style.color = '#5f6f81';
-}
+app.append(ul);
 
 function hoveredSideMenu() {
-    linkTrig.style.backgroundColor = '#5f6f81';
-    linkTrig.style.color = 'white';
     nav.style.left = '0';
 }
 
 function sideMenuOut() {
-    linkTrig.style.backgroundColor = 'white';
-    linkTrig.style.color = '#5f6f81';
     nav.style.left = '-100%';
 }
 
 
 triger.addEventListener('mouseover', hoveredSideMenu);
 triger.addEventListener('mouseout', sideMenuOut);
-
-linkF.addEventListener('mouseover', hovered);
-linkF.addEventListener('mouseout', mouseOut);
-
-linkS.addEventListener('mouseover', hovered);
-linkS.addEventListener('mouseout', mouseOut);
-
-linkT.addEventListener('mouseover', hovered);
-linkT.addEventListener('mouseout', mouseOut);
-
