@@ -19,38 +19,48 @@ const navUl = createElement('ul', 'side-menu');
 
 const liSearch = createElement('li');
 const linkSearch = createElement('a');
-linkSearch.textContent = 'Search';
+const spanSearch = createElement('span');
+spanSearch.textContent = 'Search';
 linkSearch.href = '#';
 linkSearch.insertAdjacentHTML('afterBegin', '<i class="fa fa-search" aria-hidden="true"></i>');
+linkSearch.append(spanSearch);
 liSearch.append(linkSearch);
 
 
 const liDownloads = createElement('li');
 const linkDownloads = createElement('a');
-linkDownloads.textContent = 'Downloads';
+const spanDownloads = createElement('span');
+spanDownloads.textContent = 'Downloads';
 linkDownloads.href = '#';
 linkDownloads.insertAdjacentHTML('afterBegin', '<i class="fa fa-download" aria-hidden="true"></i>');
+linkDownloads.append(spanDownloads);
 liDownloads.append(linkDownloads);
 
 const liSettings = createElement('li');
 const linkSettings = createElement('a');
-linkSettings.textContent = 'Settings';
+const spanSettings = createElement('span');
+spanSettings.textContent = 'Settings';
 linkSettings.href = '#';
 linkSettings.insertAdjacentHTML('afterBegin', '<i class="fa fa-cog" aria-hidden="true"></i>');
+linkSettings.append(spanSettings);
 liSettings.append(linkSettings);
 
 const liHelp = createElement('li');
 const linkHelp = createElement('a');
-linkHelp.textContent = 'Help';
+const spanHelp = createElement('span');
+spanHelp.textContent = 'Help';
 linkHelp.href = '#';
 linkHelp.insertAdjacentHTML('afterBegin', '<i class="fa fa-question-circle" aria-hidden="true"></i>');
+linkHelp.append(spanHelp);
 liHelp.append(linkHelp);
 
 const liArchives = createElement('li');
 const linkArchives = createElement('a');
-linkArchives.textContent = 'Archives';
+const spanArchives = createElement('span');
+spanArchives.textContent = 'Archives';
 linkArchives.href = '#';
 linkArchives.insertAdjacentHTML('afterBegin', '<i class="fa fa-archive" aria-hidden="true"></i>');
+linkArchives.append(spanArchives);
 liArchives.append(linkArchives);
 
 navUl.append(liSearch, liDownloads, liSettings, liHelp, liArchives);
@@ -91,3 +101,13 @@ function sideMenuOut() {
 
 triger.addEventListener('mouseover', hoveredSideMenu);
 triger.addEventListener('mouseout', sideMenuOut);
+
+navUl.addEventListener('mouseover',() => {
+    nav.style.overflow = 'visible';
+    nav.style.width = '300px';
+})
+
+navUl.addEventListener('mouseout', () => {
+    nav.style.overflow = 'hidden';
+    nav.style.width = '75px'
+})

@@ -38,6 +38,10 @@
    letter-spacing: 1px;
 }
 
+.side-menu > li > a {
+    padding: 0 23px;
+}
+
 .trig-link {
     padding: 0 5px;
 }
@@ -55,16 +59,29 @@
     background-color: white;
     height: 100%;
     left: -100%;
-    transition: left 0.45s;
+    width: 75px;
+    overflow: hidden;
+    transition: 0.5s;
+      
 }
 
 .side-menu > li > a {
     border-top: 1px solid #c6d0da;
     font-family: 'Montserrat', sans-serif;
     font-weight: 300;
-    width: 300px;
-    padding-left: 10px;
-    text-align: start;
+    white-space: nowrap;
+    text-align: start;    
+}
+
+.side-menu > li > a > span {
+    visibility: hidden;
+    opacity: 0;
+    transition: 0.3s 0.15s opacity;
+}
+
+.side-menu:hover span {
+    visibility: visible;
+    opacity: 1;
 }
 
 .ul-menu > li > a:hover {
