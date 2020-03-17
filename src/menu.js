@@ -1,8 +1,11 @@
 function createElement(tag, className) {
     const element = document.createElement(tag)
-    if (className) element.classList.add(className)
 
-    return element
+    if (className) {
+        element.classList.add(className) 
+        return element
+    }
+
 }
 
 const app = document.querySelector('#root');
@@ -95,19 +98,40 @@ function hoveredSideMenu() {
 }
 
 function sideMenuOut() {
+    if (nav.classList.contains('whole-menu')) {
+        return;
+    }
     nav.style.left = '-100%';
 }
+
 
 
 triger.addEventListener('mouseover', hoveredSideMenu);
 triger.addEventListener('mouseout', sideMenuOut);
 
-navUl.addEventListener('mouseover',() => {
+navUl.addEventListener('mouseover', () => {
+    nav.classList.add('whole-menu');
     nav.style.overflow = 'visible';
     nav.style.width = '300px';
+
+    document.querySelectorAll('.side-menu > li > a > span').forEach((elem) => {
+        elem.style.setProperty('opacity', '1');
+        elem.style.setProperty('visibility', 'visible');
+    })
 })
 
-navUl.addEventListener('mouseout', () => {
-    nav.style.overflow = 'hidden';
-    nav.style.width = '75px'
+document.addEventListener('click', (e) => {
+
+    if (e.target.closest('.ul-menu-side')) {
+        return
+    }
+
+    nav.classList.remove('whole-menu');
+    nav.style.left = '-100%';
+    nav.style.width = '75px';
+
+    document.querySelectorAll('.side-menu > li > a > span').forEach((elem) => {
+        elem.style.setProperty('opacity', '0');
+        elem.style.setProperty('visibility', 'hidden');
+    })
 })
