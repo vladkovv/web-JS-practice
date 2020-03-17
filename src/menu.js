@@ -95,19 +95,41 @@ function hoveredSideMenu() {
 }
 
 function sideMenuOut() {
-    nav.style.left = '-100%';
+
+        if(nav.classList.contains('whole-menu')){
+            return;
+        }
+
+        nav.style.left = '-100%';
 }
+
 
 
 triger.addEventListener('mouseover', hoveredSideMenu);
 triger.addEventListener('mouseout', sideMenuOut);
 
-navUl.addEventListener('mouseover',() => {
+navUl.addEventListener('mouseover', () => {
+    nav.classList.add('whole-menu');
     nav.style.overflow = 'visible';
     nav.style.width = '300px';
+    
+    document.querySelectorAll('.side-menu > li > a > span').forEach((elem) => {
+        elem.style.setProperty('opacity', '1');
+        elem.style.setProperty('visibility', 'visible');
+    })
 })
+document.addEventListener('click', (e) => {
 
-navUl.addEventListener('mouseout', () => {
-    nav.style.overflow = 'hidden';
-    nav.style.width = '75px'
+    if (e.target.closest('.ul-menu-side')) {
+        return
+    }
+
+    nav.style.left = '-100%';
+    nav.style.width = '75px';
+    nav.classList.remove('whole-menu');
+
+    document.querySelectorAll('.side-menu > li > a > span').forEach((elem) => {
+        elem.style.setProperty('opacity', '0');
+        elem.style.setProperty('visibility', 'hidden');
+    })
 })

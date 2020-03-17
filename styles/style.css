@@ -87,7 +87,10 @@
 .ul-menu > li > a:hover {
     background-color: #5f6f81;
     color: white;
-} 
+}
+.ul-menu-hidden {
+    left: -100%;
+}
 
 .side-menu > li > a:hover {
     background-color: #5f6f81;
