@@ -1,11 +1,8 @@
 function createElement(tag, className) {
     const element = document.createElement(tag)
+    if (className) element.classList.add(className)
 
-    if (className) {
-        element.classList.add(className) 
-        return element
-    }
-
+    return element
 }
 
 const app = document.querySelector('#root');
@@ -98,10 +95,12 @@ function hoveredSideMenu() {
 }
 
 function sideMenuOut() {
-    if (nav.classList.contains('whole-menu')) {
-        return;
-    }
-    nav.style.left = '-100%';
+
+        if(nav.classList.contains('whole-menu')){
+            return;
+        }
+
+        nav.style.left = '-100%';
 }
 
 
@@ -113,22 +112,21 @@ navUl.addEventListener('mouseover', () => {
     nav.classList.add('whole-menu');
     nav.style.overflow = 'visible';
     nav.style.width = '300px';
-
+    
     document.querySelectorAll('.side-menu > li > a > span').forEach((elem) => {
         elem.style.setProperty('opacity', '1');
         elem.style.setProperty('visibility', 'visible');
     })
 })
-
 document.addEventListener('click', (e) => {
 
     if (e.target.closest('.ul-menu-side')) {
         return
     }
 
-    nav.classList.remove('whole-menu');
     nav.style.left = '-100%';
     nav.style.width = '75px';
+    nav.classList.remove('whole-menu');
 
     document.querySelectorAll('.side-menu > li > a > span').forEach((elem) => {
         elem.style.setProperty('opacity', '0');
