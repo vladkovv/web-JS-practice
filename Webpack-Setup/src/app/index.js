@@ -1,4 +1,5 @@
 import '../style/app.scss';
+import "@babel/polyfill";
 
 function createElement(tag, className) {
     const element = document.createElement(tag);
@@ -28,37 +29,41 @@ fDivUl.append(firstUl);
 firstAutocomplete.append(fDivInp, fDivUl);
 app.append(firstAutocomplete);
 
-function initialData() {
-    if(firstInp.value == '') {
-    document.querySelector('i.fa-caret-down').style.transform = 'rotate(180deg)';
+async function initialData() {
+    if (firstInp.value == '') {
+        document.querySelector('i.fa-caret-down').style.transform = 'rotate(180deg)';
     }
 
-    if(firstInp.value == '') {
-        while (firstUl.firstChild) {
+    if (firstInp.value == '') {
+        for(let child in firstUl) {
+            
+            if(firstUl.firstChild) {
             firstUl.removeChild(firstUl.firstChild);
+            }
         }
-    
-        fetch('https://restcountries.eu/rest/v2/all')
-            .then(response => response.json())
-            .then(json => json.forEach((elem) => {
-                const li = createElement('li');
-                li.textContent = elem.name;
-                firstUl.append(li);
-            }))
-            .then(() => {
-                fDivUl.style.display = 'block';
+
+        let response = await fetch('https://restcountries.eu/rest/v2/all');
+        let result = await response.json();
+
+        result.forEach((elem) => {
+            const li = createElement('li');
+            li.textContent = elem.name;
+            firstUl.append(li);
+        })
+
+        fDivUl.style.display = 'block';
+
+        document.querySelectorAll('.first-ul > li').forEach((elem) => {
+            elem.addEventListener('click', () => {
+                firstInp.value = elem.textContent;
+                document.querySelector('i.fa-caret-down').style.transform = '';
+                fDivUl.style.display = 'none';
+                firstInp.focus();
             })
-            .then(() => {
-                document.querySelectorAll('.first-ul > li').forEach((elem) => {
-                    elem.addEventListener('click', () => {
-                        firstInp.value = elem.textContent;
-                        document.querySelector('i.fa-caret-down').style.transform = '';
-                        fDivUl.style.display = 'none';
-                        firstInp.focus();
-                    })
-                })
-            })
-    }}
+        })
+    }
+}
+
 
 firstInp.addEventListener('focus', () => {
     fDivInp.style.border = '3px double #90CAF9';
@@ -71,42 +76,46 @@ firstInp.addEventListener('blur', () => {
 
 firstInp.addEventListener('click', initialData);
 
-firstInp.addEventListener('input', () => {
+firstInp.addEventListener('input', async () => {
     const selector = firstInp.value;
     document.querySelector('i.fa-caret-down').style.transform = 'rotate(180deg)';
     if (!firstInp.value == '') {
-        
-        while (firstUl.firstChild) {
+
+        for(let child in firstUl) {
+
+            if(firstUl.firstChild) {
             firstUl.removeChild(firstUl.firstChild);
+            }
         }
 
-        fetch(`https://restcountries.eu/rest/v2/name/${selector}`)
-            .then(response => response.json())
-            .then(json => json.forEach((elem) => {
-                const li = createElement('li');
-                li.textContent = elem.name;
-                firstUl.append(li);
-            }))
-            .then(() => {
-                fDivUl.style.display = 'block';
-                document.querySelectorAll('.first-ul > li').forEach((elem) => {
-                    elem.addEventListener('click', () => {
-                        firstInp.value = elem.textContent;
-                        document.querySelector('i.fa-caret-down').style.transform = '';
-                        fDivUl.style.display = 'none';
-                        firstInp.focus();
-                    })
+        let response = await fetch(`https://restcountries.eu/rest/v2/name/${selector}`);
+        let result = await response.json();
+        if(response.ok) {
+        result.forEach((elem) => {
+            const li = createElement('li');
+            li.textContent = elem.name;
+            firstUl.append(li);
+        })
+
+        fDivUl.style.display = 'block';
+        document.querySelectorAll('.first-ul > li').forEach((elem) => {
+                elem.addEventListener('click', () => {
+                    firstInp.value = elem.textContent;
+                    document.querySelector('i.fa-caret-down').style.transform = '';
+                    fDivUl.style.display = 'none';
+                    firstInp.focus();
                 })
-            })
-            .catch(() => {
+            })}
+
+            else {
                 fDivUl.style.display = 'block';
                 const li = createElement('li');
                 li.textContent = 'No options...';
                 firstUl.append(li);
-            })
-            
-    }
+            }
 
+    } 
+    
     else {
         initialData();
     }
@@ -123,42 +132,44 @@ document.addEventListener('click', (e) => {
 
 
 document.querySelector('i.fa-times').addEventListener('click', () => {
-    if(!firstInp.value == ''){
-    firstInp.value = '';
+    if (!firstInp.value == '') {
+        firstInp.value = '';
+        fDivUl.style.display = 'none';
     }
+    
     firstInp.focus();
 })
 
 document.querySelector('i.fa-caret-down').addEventListener('click', (e) => {
-    if(e.target.style.transform == '') {
+    if (e.target.style.transform == '') {
         e.target.style.transform = 'rotate(180deg)';
-    }
+    } 
 
-    else{
+    else {
         e.target.style.transform = '';
     }
 
-    if(fDivUl.style.display == 'none' && !firstUl.firstChild) {
-    initialData();
-    firstInp.focus();
+    if (fDivUl.style.display == 'none' && !firstUl.firstChild) {
+        initialData();
+        firstInp.focus();
     }
-
+    
     else {
 
-        if(fDivUl.style.display == 'none') {
+        if (fDivUl.style.display == 'none') {
             fDivUl.style.display = 'block';
             firstInp.focus();
-        }
-
-        else {
-     fDivUl.style.display = 'none';
-     e.target.style.transform = ''; 
         } 
+        
+        else {
+            fDivUl.style.display = 'none';
+            e.target.style.transform = '';
+        }
     }
 })
 
 fDivInp.addEventListener('mouseover', () => {
-    if(!firstInp.value == '') {
+    if (!firstInp.value == '') {
         document.querySelector('i.fa-times').style.display = 'inline-block';
     }
 
